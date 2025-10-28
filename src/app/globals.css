@@ -1,0 +1,302 @@
+/* Updated: 2025-10-28T06:32:12.774Z */
+/* Updated: 2025-10-27T03:15:59.746Z */
+/*
+ * Typography: Open Sans (body) + Lato (headings)
+ * Research-based font selection for dental/healthcare websites
+ * - Open Sans: Most recommended for medical websites, excellent readability
+ * - Lato: Clean, modern, professional sans-serif for headings
+ * - Both fonts convey trust, professionalism, and cleanliness
+ */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Lato:wght@400;600;700;900&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Lato', 'Open Sans', sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /*
+   * Color Psychology for Dental Websites:
+   * - Blue (#0EA5E9): Trust, professionalism, serenity, calmness
+   * - Green (#10B981): Health, healing, nature, restoration
+   * - White (#FFFFFF): Cleanliness, sterility, purity
+   * - Light Gray: Modern, professional, neutral
+   *
+   * Color Distribution (60-30-10 Rule):
+   * - 60% White/Light backgrounds (cleanliness)
+   * - 30% Blue tones (trust and professionalism)
+   * - 10% Green accents (health and healing)
+   */
+  --radius: 0.5rem;
+
+  /* Base colors - White for cleanliness and clinical feel */
+  --background: #FFFFFF;
+  --foreground: #1E293B; /* Slightly softer than pure black for better readability */
+
+  /* Card colors - Clean white with improved contrast */
+  --card: #FFFFFF;
+  --card-foreground: #1E293B;
+
+  /* Popover colors */
+  --popover: #FFFFFF;
+  --popover-foreground: #1E293B;
+
+  /* Primary - Blue for trust and professionalism (kept from original) */
+  --primary: #0EA5E9; /* Sky Blue - Perfect for dental! */
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary - Light blue for calming effect */
+  --secondary: #F0F9FF; /* Very light blue */
+  --secondary-foreground: #0C4A6E; /* Dark blue for contrast */
+
+  /* Muted - Neutral grays for professional look */
+  --muted: #F8FAFC; /* Very light gray */
+  --muted-foreground: #64748B; /* Medium gray */
+
+  /* Accent - Soft green for health and healing associations */
+  --accent: #ECFDF5; /* Very light green */
+  --accent-foreground: #065F46; /* Dark green for contrast */
+
+  /* Success/Health - Green tones for positive health messaging */
+  --success: #10B981; /* Emerald green */
+  --success-foreground: #FFFFFF;
+
+  /* Destructive - Kept red but softened */
+  --destructive: #EF4444;
+
+  /* Borders and inputs - Light gray for subtle separation */
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+
+  /* Ring - Blue for focus states */
+  --ring: #0EA5E9;
+
+  /* Charts - Blue and green gradient for health data visualization */
+  --chart-1: #0EA5E9; /* Sky Blue */
+  --chart-2: #06B6D4; /* Cyan */
+  --chart-3: #14B8A6; /* Teal */
+  --chart-4: #10B981; /* Emerald */
+  --chart-5: #22C55E; /* Green */
+
+  /* Sidebar - Clean and professional */
+  --sidebar: #F8FAFC;
+  --sidebar-foreground: #1E293B;
+  --sidebar-primary: #0EA5E9;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F0F9FF;
+  --sidebar-accent-foreground: #0C4A6E;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #0EA5E9;
+}
+
+.dark {
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  --card: #1E293B;
+  --card-foreground: #F8FAFC;
+  --popover: #1E293B;
+  --popover-foreground: #F8FAFC;
+  --primary: #38BDF8;
+  --primary-foreground: #0F172A;
+  --secondary: #1E293B;
+  --secondary-foreground: #F8FAFC;
+  --muted: #334155;
+  --muted-foreground: #94A3B8;
+  --accent: #1E293B;
+  --accent-foreground: #F8FAFC;
+  --destructive: #F87171;
+  --border: #334155;
+  --input: #334155;
+  --ring: #38BDF8;
+  --chart-1: #38BDF8;
+  --chart-2: #22D3EE;
+  --chart-3: #2DD4BF;
+  --chart-4: #34D399;
+  --chart-5: #4ADE80;
+  --sidebar: #1E293B;
+  --sidebar-foreground: #F8FAFC;
+  --sidebar-primary: #38BDF8;
+  --sidebar-primary-foreground: #0F172A;
+  --sidebar-accent: #334155;
+  --sidebar-accent-foreground: #F8FAFC;
+  --sidebar-border: #334155;
+  --sidebar-ring: #38BDF8;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    /* Optimal line height for readability in healthcare content */
+    line-height: 1.6;
+    /* Improved letter spacing for better readability */
+    letter-spacing: 0.01em;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', 'Open Sans', sans-serif;
+    /* Tighter line height for headings */
+    line-height: 1.2;
+    /* Slightly tighter letter spacing for headings */
+    letter-spacing: -0.01em;
+    /* Improved font weight for better hierarchy */
+    font-weight: 700;
+  }
+  h1 {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-weight: 700;
+  }
+  h3 {
+    font-weight: 600;
+  }
+}
+
+/*
+ * Accessibility Enhancements for Healthcare Websites
+ * Following WCAG 2.1 AA Standards
+ */
+
+/* Focus visible for keyboard navigation - critical for accessibility */
+@layer base {
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+
+  /* Improved link accessibility */
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  a:hover {
+    @apply underline;
+  }
+
+  /* Better button accessibility */
+  button:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+
+  /* Ensure sufficient contrast for text */
+  p, li, span {
+    color: #1E293B; /* WCAG AA compliant contrast ratio */
+  }
+
+  /* Improved spacing for better readability */
+  p {
+    margin-bottom: 1rem;
+  }
+
+  ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Better spacing for headings */
+  h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 5vw, 3rem); /* Responsive typography */
+  }
+
+  h2 {
+    margin-bottom: 1.25rem;
+    margin-top: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+  }
+
+  h3 {
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    font-size: clamp(1.25rem, 3vw, 1.875rem);
+  }
+
+  h4 {
+    margin-bottom: 0.75rem;
+    margin-top: 1.25rem;
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  }
+
+  /* Improved form accessibility */
+  input, textarea, select {
+    @apply transition-colors duration-200;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+
+  /* Better contrast for disabled elements */
+  input:disabled, textarea:disabled, select:disabled, button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* Smooth scrolling for better UX */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Reduce motion for users who prefer it (accessibility) */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Hide Next.js error overlay portal */
+nextjs-portal {
+  display: none !important;
+}
