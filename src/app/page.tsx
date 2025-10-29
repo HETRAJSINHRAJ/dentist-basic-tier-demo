@@ -132,7 +132,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section - Enhanced Premium Version */}
-      <section className="relative bg-linear-to-br from-primary/5 via-background to-secondary/10 pt-32 pb-40 overflow-hidden">
+      <section className="relative bg-linear-to-br from-primary/5 via-background to-secondary/10 pt-32 xl:pt-40 pb-40 overflow-hidden">
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 opacity-[0.03]">
           <div className="absolute inset-0 animate-gradient" style={{
