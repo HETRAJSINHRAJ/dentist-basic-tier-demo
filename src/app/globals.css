@@ -654,6 +654,55 @@ nextjs-portal {
     min-height: 100vh;
   }
 
+  /* Mobile-optimized Locomotive Scroll */
+  @media (max-width: 767px) {
+    /* Ensure scroll container works properly on mobile */
+    [data-scroll-container] {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Optimize touch scrolling performance */
+    html.has-scroll-smooth,
+    html.has-scroll-init {
+      -webkit-overflow-scrolling: touch;
+      /* Keep overflow hidden for Locomotive to work */
+      overflow: hidden;
+    }
+
+    /* Improve mobile scroll performance */
+    .has-scroll-smooth [data-scroll-container] {
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* Reduce motion blur on mobile */
+    [data-scroll-section] {
+      will-change: transform;
+    }
+  }
+
+  /* Fallback for when Locomotive Scroll fails */
+  .scroll-fallback {
+    min-height: 100vh;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* Emergency fallback - if scrolling is completely broken */
+  html.scroll-broken,
+  html.scroll-broken body {
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  html.scroll-broken [data-scroll-container] {
+    overflow: visible !important;
+    height: auto !important;
+    transform: none !important;
+  }
+
   .c-scrollbar {
     position: absolute;
     right: 0;
