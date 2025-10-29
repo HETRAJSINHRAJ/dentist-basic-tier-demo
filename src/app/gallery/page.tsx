@@ -116,7 +116,7 @@ export default function GalleryPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-linear-to-br from-primary/10 via-background to-secondary/20 py-20">
+      <section className="bg-linear-to-br from-primary/10 via-background to-secondary/20 pt-32 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <Badge className="mb-4 animate-fade-in" variant="secondary">
