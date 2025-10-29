@@ -161,7 +161,7 @@ export default function ContactForm() {
           placeholder="John Doe"
           {...register('name')}
           disabled={isSubmitting}
-          className={`transition-transform focus:scale-[1.01] ${
+          className={`transition-all duration-300 focus:scale-[1.01] hover:border-primary/30 ${
             errors.name ? 'border-destructive focus-visible:ring-destructive' : ''
           }`}
           aria-invalid={errors.name ? 'true' : 'false'}
@@ -188,7 +188,7 @@ export default function ContactForm() {
           placeholder="john@example.com"
           {...register('email')}
           disabled={isSubmitting}
-          className={`transition-transform focus:scale-[1.01] ${
+          className={`transition-all duration-300 focus:scale-[1.01] hover:border-primary/30 ${
             errors.email ? 'border-destructive focus-visible:ring-destructive' : ''
           }`}
           aria-invalid={errors.email ? 'true' : 'false'}
@@ -216,7 +216,7 @@ export default function ContactForm() {
           {...register('phone')}
           onChange={handlePhoneChange}
           disabled={isSubmitting}
-          className={`transition-transform focus:scale-[1.01] ${
+          className={`transition-all duration-300 focus:scale-[1.01] hover:border-primary/30 ${
             errors.phone ? 'border-destructive focus-visible:ring-destructive' : ''
           }`}
           aria-invalid={errors.phone ? 'true' : 'false'}
@@ -247,7 +247,7 @@ export default function ContactForm() {
           disabled={isSubmitting}
         >
           <SelectTrigger
-            className={`transition-transform focus:scale-[1.01] ${
+            className={`transition-all duration-300 focus:scale-[1.01] hover:border-primary/30 ${
               errors.service ? 'border-destructive focus-visible:ring-destructive' : ''
             }`}
             aria-invalid={errors.service ? 'true' : 'false'}
@@ -289,7 +289,7 @@ export default function ContactForm() {
           placeholder="Tell us about your dental needs or any questions you have..."
           {...register('message')}
           disabled={isSubmitting}
-          className={`min-h-[120px] transition-transform focus:scale-[1.01] ${
+          className={`min-h-[120px] transition-all duration-300 focus:scale-[1.01] hover:border-primary/30 ${
             errors.message ? 'border-destructive focus-visible:ring-destructive' : ''
           }`}
           aria-invalid={errors.message ? 'true' : 'false'}
@@ -320,11 +320,11 @@ export default function ContactForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full relative overflow-hidden group transition-all duration-300"
+        className="w-full relative overflow-hidden group transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/40"
       >
         {/* Animated gradient background on hover */}
-        <span className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
+        <span className="absolute inset-0 bg-linear-to-r from-primary via-primary/80 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
         <span className="relative flex items-center justify-center">
           {isSubmitting ? (
             <>

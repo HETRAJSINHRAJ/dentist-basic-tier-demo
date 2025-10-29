@@ -1,8 +1,6 @@
 "use client";
 
-import type { Metadata } from 'next';
 import { useState } from 'react';
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ServiceCard from '@/components/ServiceCard';
 import { Badge } from '@/components/ui/badge';
@@ -25,9 +23,11 @@ import {
   Activity,
 } from 'lucide-react';
 import Link from 'next/link';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 export default function ServicesPage() {
   const [filter, setFilter] = useState('all');
+  const visibleSections = useScrollAnimation();
 
   const services = [
     {
@@ -143,20 +143,18 @@ export default function ServicesPage() {
 
   return (
     <>
-      <Navbar />
-
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
+      <section className="bg-linear-to-br from-primary/10 via-background to-secondary/20 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <Badge className="mb-4" variant="secondary">
+            <Badge className="mb-4 animate-fade-in" variant="secondary">
               Our Services
             </Badge>
-            <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-6">
+            <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-6 animate-fade-in-up animation-delay-100">
               Comprehensive Dental Care
             </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              From routine checkups to advanced procedures, we offer a complete range of dental 
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto animate-fade-in-up animation-delay-200">
+              From routine checkups to advanced procedures, we offer a complete range of dental
               services to meet all your oral health needs in one convenient location.
             </p>
           </div>
@@ -164,24 +162,39 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-background">
+      <section
+        id="services-list-section"
+        data-animate-section
+        className={`py-20 bg-background transition-all duration-1000 ${
+          visibleSections.has('services-list-section') ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
+          <div className={`mb-12 transition-all duration-700 ${
+            visibleSections.has('services-list-section') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}>
             <Tabs value={filter} onValueChange={setFilter} className="w-full">
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 h-auto gap-2">
-                <TabsTrigger value="all" className="py-3">All Services</TabsTrigger>
-                <TabsTrigger value="general" className="py-3">General</TabsTrigger>
-                <TabsTrigger value="cosmetic" className="py-3">Cosmetic</TabsTrigger>
-                <TabsTrigger value="restorative" className="py-3">Restorative</TabsTrigger>
-                <TabsTrigger value="orthodontics" className="py-3">Orthodontics</TabsTrigger>
-                <TabsTrigger value="specialized" className="py-3">Specialized</TabsTrigger>
+                <TabsTrigger value="all" className="py-3 transition-all duration-300">All Services</TabsTrigger>
+                <TabsTrigger value="general" className="py-3 transition-all duration-300">General</TabsTrigger>
+                <TabsTrigger value="cosmetic" className="py-3 transition-all duration-300">Cosmetic</TabsTrigger>
+                <TabsTrigger value="restorative" className="py-3 transition-all duration-300">Restorative</TabsTrigger>
+                <TabsTrigger value="orthodontics" className="py-3 transition-all duration-300">Orthodontics</TabsTrigger>
+                <TabsTrigger value="specialized" className="py-3 transition-all duration-300">Specialized</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {filteredServices.map((service, index) => (
-              <ServiceCard key={index} {...service} />
+              <div
+                key={index}
+                style={{
+                  animation: visibleSections.has('services-list-section') ? `fadeInUp 0.6s ease-out ${index * 0.05}s backwards` : 'none'
+                }}
+              >
+                <ServiceCard {...service} />
+              </div>
             ))}
           </div>
 
@@ -194,23 +207,31 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-primary/80 text-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <section
+        id="cta-section"
+        data-animate-section
+        className={`py-20 bg-linear-to-r from-primary to-primary/80 text-white transition-all duration-1000 ${
+          visibleSections.has('cta-section') ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <div className={`mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center transition-all duration-700 ${
+          visibleSections.has('cta-section') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}>
           <h2 className="font-serif text-4xl font-bold mb-4">
             Not Sure Which Service You Need?
           </h2>
           <p className="text-lg mb-8 opacity-90">
-            Schedule a consultation with our team and we will help you find the perfect 
+            Schedule a consultation with our team and we will help you find the perfect
             treatment plan for your dental needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
+            <Button size="lg" variant="secondary" asChild className="hover:-translate-y-0.5 transition-all duration-300 hover:shadow-xl">
               <Link href="/contact">Schedule Consultation</Link>
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="bg-transparent border-white text-white hover:bg-white/10" 
+            <Button
+              size="lg"
+              variant="outline"
+              className="bg-transparent border-white text-white hover:bg-white/10 hover:-translate-y-0.5 transition-all duration-300 hover:shadow-lg"
               asChild
             >
               <Link href="tel:5551234567">Call (555) 123-4567</Link>
@@ -220,35 +241,37 @@ export default function ServicesPage() {
       </section>
 
       {/* Insurance Section */}
-      <section className="py-20 bg-secondary/30">
+      <section
+        id="insurance-section"
+        data-animate-section
+        className={`py-20 bg-secondary/30 transition-all duration-1000 ${
+          visibleSections.has('insurance-section') ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <div className={`text-center transition-all duration-700 ${
+            visibleSections.has('insurance-section') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}>
             <h2 className="font-serif text-4xl font-bold text-foreground mb-6">
               Insurance & Payment Options
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-              We accept most major dental insurance plans and offer flexible payment options 
+              We accept most major dental insurance plans and offer flexible payment options
               to make quality dental care accessible to everyone.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Badge variant="outline" className="px-6 py-3 text-base">
-                Delta Dental
-              </Badge>
-              <Badge variant="outline" className="px-6 py-3 text-base">
-                MetLife
-              </Badge>
-              <Badge variant="outline" className="px-6 py-3 text-base">
-                Aetna
-              </Badge>
-              <Badge variant="outline" className="px-6 py-3 text-base">
-                Cigna
-              </Badge>
-              <Badge variant="outline" className="px-6 py-3 text-base">
-                Guardian
-              </Badge>
-              <Badge variant="outline" className="px-6 py-3 text-base">
-                United Healthcare
-              </Badge>
+              {['Delta Dental', 'MetLife', 'Aetna', 'Cigna', 'Guardian', 'United Healthcare'].map((insurance, index) => (
+                <Badge
+                  key={index}
+                  variant="outline"
+                  className="px-6 py-3 text-base hover:scale-105 hover:border-primary/50 transition-all duration-300"
+                  style={{
+                    animation: visibleSections.has('insurance-section') ? `fadeInUp 0.6s ease-out ${index * 0.1}s backwards` : 'none'
+                  }}
+                >
+                  {insurance}
+                </Badge>
+              ))}
             </div>
             <p className="text-muted-foreground mt-6">
               We also offer flexible payment plans and accept CareCredit financing.

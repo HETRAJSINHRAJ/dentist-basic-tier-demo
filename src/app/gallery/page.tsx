@@ -1,18 +1,18 @@
 "use client";
 
-import type { Metadata } from 'next';
 import { useState } from 'react';
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 export default function GalleryPage() {
   const [filter, setFilter] = useState('all');
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const visibleSections = useScrollAnimation();
 
   const images = [
     {
@@ -115,20 +115,18 @@ export default function GalleryPage() {
 
   return (
     <>
-      <Navbar />
-
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
+      <section className="bg-linear-to-br from-primary/10 via-background to-secondary/20 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <Badge className="mb-4" variant="secondary">
+            <Badge className="mb-4 animate-fade-in" variant="secondary">
               Gallery
             </Badge>
-            <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-6">
+            <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-6 animate-fade-in-up animation-delay-100">
               See Our Work & Facility
             </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Take a look at our modern dental practice, meet our team, and see the beautiful 
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto animate-fade-in-up animation-delay-200">
+              Take a look at our modern dental practice, meet our team, and see the beautiful
               smiles we have helped create.
             </p>
           </div>
@@ -136,16 +134,24 @@ export default function GalleryPage() {
       </section>
 
       {/* Gallery Section */}
-      <section className="py-20 bg-background">
+      <section
+        id="gallery-section"
+        data-animate-section
+        className={`py-20 bg-background transition-all duration-1000 ${
+          visibleSections.has('gallery-section') ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
+          <div className={`mb-12 transition-all duration-700 ${
+            visibleSections.has('gallery-section') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}>
             <Tabs value={filter} onValueChange={setFilter} className="w-full">
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto gap-2">
-                <TabsTrigger value="all" className="py-3">All Photos</TabsTrigger>
-                <TabsTrigger value="office" className="py-3">Our Office</TabsTrigger>
-                <TabsTrigger value="treatments" className="py-3">Treatments</TabsTrigger>
-                <TabsTrigger value="team" className="py-3">Our Team</TabsTrigger>
-                <TabsTrigger value="results" className="py-3">Results</TabsTrigger>
+                <TabsTrigger value="all" className="py-3 transition-all duration-300">All Photos</TabsTrigger>
+                <TabsTrigger value="office" className="py-3 transition-all duration-300">Our Office</TabsTrigger>
+                <TabsTrigger value="treatments" className="py-3 transition-all duration-300">Treatments</TabsTrigger>
+                <TabsTrigger value="team" className="py-3 transition-all duration-300">Our Team</TabsTrigger>
+                <TabsTrigger value="results" className="py-3 transition-all duration-300">Results</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
@@ -154,15 +160,18 @@ export default function GalleryPage() {
             {filteredImages.map((image, index) => (
               <div
                 key={index}
-                className="relative aspect-[4/3] rounded-lg overflow-hidden cursor-pointer group shadow-md hover:shadow-xl transition-shadow"
+                className="relative aspect-4/3 rounded-lg overflow-hidden cursor-pointer group shadow-md hover:shadow-xl transition-all duration-300"
                 onClick={() => setSelectedImage(index)}
+                style={{
+                  animation: visibleSections.has('gallery-section') ? `fadeInUp 0.6s ease-out ${index * 0.05}s backwards` : 'none'
+                }}
               >
                 <img
                   src={image.src}
                   alt={image.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <p className="text-white font-semibold">{image.title}</p>
                   </div>
@@ -199,7 +208,7 @@ export default function GalleryPage() {
                 className="w-full h-auto max-h-[80vh] object-contain"
               />
               
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+              <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-6 text-white">
                 <h3 className="text-xl font-semibold">{filteredImages[selectedImage].title}</h3>
                 <p className="text-sm text-white/80">
                   {selectedImage + 1} of {filteredImages.length}
